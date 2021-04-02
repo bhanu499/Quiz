@@ -6,47 +6,44 @@ using System.Threading.Tasks;
 
 namespace Quiz.Models
 {
+    [Serializable]
     public class QuizManager
     {
-        List<Question> baseQuestions = new List<Question>();
-        List<Question> questions = new List<Question>();
-        int activeQuestionIndex = 0;
+        public List<Question> baseQuestions = new List<Question>();
+        public List<Question> questions = new List<Question>();
+        public int activeQuestionIndex = 0;
         public int Score = 0;
-        static QuizManager instance;
         public bool IsComplete = false;
 
-        private QuizManager()
+        public QuizManager(bool initializeData = false)
         {
-            for (int i = 0; i < 20; i++)
+            if (initializeData)
             {
-                baseQuestions.Add(new Question()
+                for (int i = 0; i < 20; i++)
                 {
-                    Topic = "Basics",
-                    QuestionId = i,
-                    QuestionDescription = "Shape of earth",
-                    Option1 = "Square",
-                    Option2 = "Triangle",
-                    Option3 = "Round",
-                    Option4 = "Trapezoid",
-                    Answer = "Round"
-                });
+                    baseQuestions.Add(new Question()
+                    {
+                        Topic = "Basics",
+                        QuestionId = i,
+                        QuestionDescription = "Shape of earth",
+                        Option1 = i + "",
+                        Option2 = i + "",
+                        Option3 = "Round",
+                        Option4 = i + "",
+                        Answer = "Round"
+                    });
+                }
             }
         }
 
-        public static QuizManager Instance
+        public bool IntializeRandomQuestions(int count, string topic = null)
         {
-            get
+            var totalQuestions = baseQuestions;
+            if(topic != null)
             {
-                if (instance == null)
-                    instance = new QuizManager();
-                return instance;
-
+                totalQuestions = totalQuestions.FindAll((question) => question.Topic == topic);
             }
-        }
-
-        public bool IntializeRandomQuestions(int count)
-        {
-            if (count > baseQuestions.Count)
+            if (count > totalQuestions.Count)
             {
                 return false;
             }
@@ -58,9 +55,9 @@ namespace Quiz.Models
                 {
                     do
                     {
-                        number = r.Next(1, baseQuestions.Count);
-                    } while (questions.Contains(baseQuestions[number]));
-                    questions.Add(baseQuestions[number]);
+                        number = r.Next(1, totalQuestions.Count);
+                    } while (questions.Contains(totalQuestions[number]));
+                    questions.Add(totalQuestions[number]);
 
                 }
 

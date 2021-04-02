@@ -27,12 +27,15 @@ namespace Quiz
             services.AddSession(so =>
             {
                 so.IdleTimeout = TimeSpan.FromSeconds(600);
+                so.Cookie.HttpOnly = true;
+                so.Cookie.IsEssential = true;
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -45,10 +48,10 @@ namespace Quiz
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

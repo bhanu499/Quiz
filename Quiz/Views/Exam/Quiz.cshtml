@@ -8,13 +8,12 @@
     $("#submitButton").live("click", function () {
         $.get($(this), function (response) {
             $("#quiz").replaceWith($("#quiz", response));
-
-
         });
         return false;
     });
+    
 
-    });</script>
+ </script>
 
 
 <div id="quiz">
@@ -22,25 +21,27 @@
 
     @using (Html.BeginForm("Quiz", "Exam"))
     {
-        <fieldset>
-            <legend><h2>@Model.QuestionDescription</h2></legend>
-            <h1>@Model.QuestionId</h1>
-            <li>
-                <ul>
-                    @Html.RadioButton("answer", @Model.Option1) @Model.Option1
-                </ul>
-                <ul>
-                    @Html.RadioButton("answer", @Model.Option2) @Model.Option2
-                </ul>
-                <ul>
-                    @Html.RadioButton("answer", @Model.Option3) @Model.Option3
-                </ul>
-                <ul>
-                    @Html.RadioButton("answer", @Model.Option4) @Model.Option4
-                </ul>
-            </li>
-            <input type="submit" value="Quiz" id="submitButton" />
-        </fieldset>
+    <fieldset>
+        <legend>@TempData["questionIndex"] . <h2>@Model.QuestionDescription</h2></legend>
+        <li>
+            <ul>
+                @Html.RadioButton("answer", @Model.Option1) @Model.Option1
+            </ul>
+            <ul>
+                @Html.RadioButton("answer", @Model.Option2) @Model.Option2
+            </ul>
+            <ul>
+                @Html.RadioButton("answer", @Model.Option3) @Model.Option3
+            </ul>
+            <ul>
+                @Html.RadioButton("answer", @Model.Option4) @Model.Option4
+            </ul>
+        </li>
+        <input type="submit" name="Submit" value="Submit" id="submitButton" />
+        <input type="submit" name="Previous" value="Previous" id="previousButton" />
+        <input type="submit" name="Next" value="Next" id="nextButton" />
+
+    </fieldset>
     }
 
 </div>

@@ -20,16 +20,14 @@
                 @Html.TextBoxFor(m => m.Name)
                 @Html.ValidationMessageFor(m => m.Name)
             </div>
-
             <div class="editor-label">
                 @Html.LabelFor(m => m.Topic)
             </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.Topic)
-                @Html.ValidationMessageFor(m => m.Topic)
-            </div>
-
-
+            @Html.DropDownListFor(m => m.Topic, new List<SelectListItem>
+{
+    new SelectListItem{ Text="Basics", Value = "Basics" },
+    new SelectListItem{ Text="Maths", Value = "Maths" }
+ })
             <p>
                 <input type="submit" value="Start" />
             </p>

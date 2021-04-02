@@ -1,0 +1,37 @@
+﻿@model Results[]
+
+@{
+    ViewData["Title"] = "Results Page";
+}
+
+@if (TempData["Result"] != null)
+{
+    var message = TempData["Result"];
+    <div class="alert">
+        <strong>@message</strong>
+    </div>
+
+    <li>@Html.ActionLink("Show Results", "Results", "Exam", routeValues: null, htmlAttributes: new { id = "showResultsLink" })</li>
+}
+else
+{
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+    }
+
+</table>
+}

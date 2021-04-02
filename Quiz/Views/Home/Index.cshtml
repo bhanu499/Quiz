@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Start Exam", "Start", "Exam", routeValues: null, htmlAttributes: new { id = "startExamLink" })</li>
+    <li>@Html.ActionLink("Show Results", "Results", "Exam", routeValues: null, htmlAttributes: new { id = "showResultsLink" })</li>
+</ul>
